@@ -1,0 +1,10 @@
+academy\devdojo\springboot2\requests\AnimePutRequestBody.class
+academy\devdojo\springboot2\Springboot2EssentialsApplication.class
+academy\devdojo\springboot2\controller\AnimeController.class
+academy\devdojo\springboot2\domain\Anime.class
+academy\devdojo\springboot2\util\DateUtil.class
+academy\devdojo\springboot2\mapper\AnimeMapper.class
+academy\devdojo\springboot2\repository\AnimeRepository.class
+academy\devdojo\springboot2\domain\Anime$AnimeBuilder.class
+academy\devdojo\springboot2\requests\AnimePostRequestBody.class
+academy\devdojo\springboot2\service\AnimeService.class
