@@ -7,6 +7,8 @@ import academy.devdojo.springboot2.repository.AnimeRepository;
 import academy.devdojo.springboot2.requests.AnimePostRequestBody;
 import academy.devdojo.springboot2.requests.AnimePutRequestBody;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,18 +16,24 @@ import java.util.List;
 
 @Service // notes this class as a service, where the business rules stay
 @RequiredArgsConstructor
-@Transactional(rollbackFor = Exception.class) // guarantee that the transaction rolls back on the entire class in case of runtime and compile time exception or error
+@Transactional(rollbackFor = Exception.class)
+// guarantee that the transaction rolls back on the entire class in case of runtime and compile time exception or error
 public class AnimeService {
 
     private final AnimeRepository animeRepository;
 
-    public List<Anime> listAll() {
+    public Page<Anime> listAll(Pageable page) {
+        return animeRepository.findAll(page);
+    }
+
+    public List<Anime> listAllNonPageable() {
         return animeRepository.findAll();
     }
 
     public List<Anime> findByName(String name) {
         return animeRepository.findByName(name);
     }
+
     public Anime findByIdOrThrowBadRequestException(Long id) {
         return animeRepository.findById(id).orElseThrow(() -> new BadRequestException("Anime not found."));
     }

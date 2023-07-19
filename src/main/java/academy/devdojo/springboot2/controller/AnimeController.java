@@ -8,6 +8,8 @@ import academy.devdojo.springboot2.util.DateUtil;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -26,10 +28,16 @@ public class AnimeController { // controller represents all the endpoints of the
     private final AnimeService animeService;
 
     @GetMapping // context for this method only localhost:8080/anime/list
-    public ResponseEntity<List<Anime>> list() {
+    public ResponseEntity<Page<Anime>> list(Pageable page) {
         log.info(dateUtil.formatLocalDateTimeToDatabaseStyle(LocalDateTime.now()));
-        return new ResponseEntity<>(animeService.listAll(), HttpStatus.OK);
+        return new ResponseEntity<>(animeService.listAll(page), HttpStatus.OK);
         // response entity object return the info(object) required and the corresponding http status
+    }
+
+    @GetMapping(path = "/all")
+    public ResponseEntity<List<Anime>> listAll() {
+        log.info(dateUtil.formatLocalDateTimeToDatabaseStyle(LocalDateTime.now()));
+        return new ResponseEntity<>(animeService.listAllNonPageable(), HttpStatus.OK);
     }
 
     @GetMapping(path = "/{id}") // path variable that will come along the url

@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.experimental.SuperBuilder;
 
 @Getter
-@SuperBuilder
+@SuperBuilder // To use to builder from the extendes class
 public class BadRequestExceptionDetails extends ExceptionDetails {
 
 }

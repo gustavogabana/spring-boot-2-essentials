@@ -20,7 +20,8 @@ import java.util.stream.Collectors;
 public class RestExceptionHandler {
 
     @ExceptionHandler(BadRequestException.class)
-    public ResponseEntity<BadRequestExceptionDetails> handlerBadRequestException(BadRequestException bre) {
+    public ResponseEntity<BadRequestExceptionDetails> handleBadRequestException(BadRequestException bre) {
+
         return new ResponseEntity<>(
                 BadRequestExceptionDetails.builder()
                         .timestamp(LocalDateTime.now())
@@ -33,10 +34,11 @@ public class RestExceptionHandler {
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<ValidationExceptionDetails> handlerMethodArgumentNotValidException(MethodArgumentNotValidException exception) {
+    public ResponseEntity<ValidationExceptionDetails> handleMethodArgumentNotValidException(MethodArgumentNotValidException exception) {
         List<FieldError> errors = exception.getBindingResult().getFieldErrors();
-        String fields = errors.stream().map(FieldError::getField).collect(Collectors.joining(","));
-        String fieldsMessage = errors.stream().map(FieldError::getDefaultMessage).collect(Collectors.joining(","));
+
+        String fields = errors.stream().map(FieldError::getField).collect(Collectors.joining(", "));
+        String fieldsMessage = errors.stream().map(FieldError::getDefaultMessage).collect(Collectors.joining(", "));
 
         return new ResponseEntity<>(
                 ValidationExceptionDetails.builder()

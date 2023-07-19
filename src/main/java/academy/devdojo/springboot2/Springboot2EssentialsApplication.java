@@ -10,5 +10,5 @@ public class Springboot2EssentialsApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(Springboot2EssentialsApplication.class, args);
 	}
-	// NEEDED TO START THE APPLICATION
+	// needed to start the application
 }
