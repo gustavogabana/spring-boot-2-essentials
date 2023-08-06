@@ -40,6 +40,9 @@ class AnimeControllerTest {
         BDDMockito.when(dateUtilMock.formatLocalDateTimeToDatabaseStyle(ArgumentMatchers.any())).thenReturn(String.valueOf(localDateTime));
 
         BDDMockito.when(animeServiceMock.listAllNonPageable()).thenReturn(List.of(AnimeCreator.createValidAnime()));
+
+        BDDMockito.when(animeServiceMock.findByIdOrThrowBadRequestException(ArgumentMatchers.anyLong()))
+                .thenReturn(AnimeCreator.createValidAnime());
     }
 
     @Test
@@ -54,7 +57,7 @@ class AnimeControllerTest {
     }
 
     @Test
-    @DisplayName("ListAll returns list of animes when successful")
+    @DisplayName("List All returns list of animes when successful")
     void listAll_ReturnsListOfAnimes_WhenSuccessful() {
         String expectedName = AnimeCreator.createValidAnime().getName();
         List<Anime> animes = animeController.listAll().getBody();
@@ -64,6 +67,16 @@ class AnimeControllerTest {
                 .isNotEmpty()
                 .hasSize(1);
         Assertions.assertThat(animes.get(0).getName()).isEqualTo(expectedName);
+    }
+
+    @Test
+    @DisplayName("Find By Id returns anime when successful")
+    void findById_ReturnsAnime_WhenSuccessful() {
+        Long expectedId = AnimeCreator.createValidAnime().getId();
+        Anime anime = animeController.findById(1L).getBody();
+
+        Assertions.assertThat(anime).isNotNull();
+        Assertions.assertThat(anime.getId()).isNotNull().isEqualTo(expectedId);
     }
 
 }
