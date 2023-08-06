@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-@Component // TRANSFORM THIS CLASS INTO A SPRING BEAN, NEEDED FOR DEPENDENCY INJECTION
+@Component // transform this class into a spring bean, needed for dependency injection
 public class DateUtil {
 
     public String formatLocalDateTimeToDatabaseStyle(LocalDateTime localDateTime) {
