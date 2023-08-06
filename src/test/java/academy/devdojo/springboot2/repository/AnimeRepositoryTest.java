@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import java.util.List;
+import java.util.Optional;
 
 @DataJpaTest // notes this class as jpa test class so transactions rollback at the end of each test
 @DisplayName("Tests for Anime Repository")
@@ -42,6 +43,17 @@ class AnimeRepositoryTest {
         Assertions.assertThat(animeList.size()).isGreaterThanOrEqualTo(1);
         Assertions.assertThat(animeList.get(0).getId()).isEqualTo(animeUpdated.getId());
         Assertions.assertThat(animeList.get(0).getName()).isEqualTo(animeUpdated.getName());
+    }
+
+    @Test
+    @DisplayName("Delete removes anime when successful")
+    void delete_RemovesAnime_WhenSuccessful() {
+        Anime animeToBeSaved = createAnime();
+        Anime animeSaved = this.animeRepository.save(animeToBeSaved);
+        this.animeRepository.delete(animeSaved);
+        Optional<Anime> optional = this.animeRepository.findById(animeSaved.getId());
+
+        Assertions.assertThat(optional).isEmpty();
     }
 
     private Anime createAnime() {
