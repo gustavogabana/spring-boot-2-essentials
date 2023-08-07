@@ -1,8 +1,10 @@
 package academy.devdojo.springboot2.controller;
 
 import academy.devdojo.springboot2.domain.Anime;
+import academy.devdojo.springboot2.requests.AnimePostRequestBody;
 import academy.devdojo.springboot2.service.AnimeService;
 import academy.devdojo.springboot2.util.AnimeCreator;
+import academy.devdojo.springboot2.util.AnimePostRequestBodyCreator;
 import academy.devdojo.springboot2.util.DateUtil;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -47,6 +49,9 @@ class AnimeControllerTest {
 
         BDDMockito.when(animeServiceMock.findByName(ArgumentMatchers.anyString()))
                 .thenReturn(List.of(AnimeCreator.createValidAnime()));
+
+        BDDMockito.when(animeServiceMock.save(ArgumentMatchers.any(AnimePostRequestBody.class)))
+                .thenReturn(AnimeCreator.createValidAnime());
     }
 
     @Test
@@ -102,6 +107,14 @@ class AnimeControllerTest {
         List<Anime> animes = animeController.findByName("Berserk").getBody();
 
         Assertions.assertThat(animes).isNotNull().isEmpty();
+    }
+
+    @Test
+    @DisplayName("Save returns anime when successful")
+    void save_ReturnsAnime_WhenSuccessful() {
+        Anime anime = animeController.save(AnimePostRequestBodyCreator.createAnimePostRequestBody()).getBody();
+
+        Assertions.assertThat(anime).isNotNull().isEqualTo(AnimeCreator.createValidAnime());
     }
 
 }
