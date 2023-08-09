@@ -14,5 +14,5 @@ Para executar os testes de integração é necessário:
 no arquivo properties.yml, pois os testes são executados em um banco de dados local.
 
 2º: Para executar os testes de integração, nomeados com a conveção IT ao final do nome da classe java, é necessário
-executar o comando mvn test -Pintegration-tests no terminal, devendo este estar aberto dentro da pasta do projeto, pois
+executar o comando **mvn test -Pintegration-tests** no terminal, devendo este estar aberto dentro da pasta do projeto, pois
 os testes de integração estão em um profile diferente, conforme a tag <profiles> no arquivo pom.xml.
