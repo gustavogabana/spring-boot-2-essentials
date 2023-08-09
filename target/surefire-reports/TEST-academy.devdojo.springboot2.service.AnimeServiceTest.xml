@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="academy.devdojo.springboot2.repository.AnimeRepositoryTest" time="6.093" tests="6" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="academy.devdojo.springboot2.service.AnimeServiceTest" time="2.483" tests="9" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="17"/>
     <property name="sun.jnu.encoding" value="UTF-8"/>
@@ -55,10 +55,13 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="61.0"/>
   </properties>
-  <testcase name="save_PersistAnime_WhenSuccessful" classname="academy.devdojo.springboot2.repository.AnimeRepositoryTest" time="0.136"/>
-  <testcase name="findByName_ReturnsListOfAnime_WhenSuccessful" classname="academy.devdojo.springboot2.repository.AnimeRepositoryTest" time="0.289"/>
-  <testcase name="delete_RemovesAnime_WhenSuccessful" classname="academy.devdojo.springboot2.repository.AnimeRepositoryTest" time="0.033"/>
-  <testcase name="findByName_ReturnsEmptyList_WhenNoAnimeIsFound" classname="academy.devdojo.springboot2.repository.AnimeRepositoryTest" time="0.011"/>
-  <testcase name="save_UpdateAnime_WhenSuccessful" classname="academy.devdojo.springboot2.repository.AnimeRepositoryTest" time="0.035"/>
-  <testcase name="save_ThrowsConstraintViolationException_WhenAnimeNameIsEmpty" classname="academy.devdojo.springboot2.repository.AnimeRepositoryTest" time="0.019"/>
+  <testcase name="findByIdOrThrowBadRequestException_ReturnsAnime_WhenAnimeIsNotFound" classname="academy.devdojo.springboot2.service.AnimeServiceTest" time="0.257"/>
+  <testcase name="findByIdOrThrowBadRequestException_ReturnsAnime_WhenSuccessful" classname="academy.devdojo.springboot2.service.AnimeServiceTest" time="0.028"/>
+  <testcase name="replace_UpdatesAnime_WhenSuccessful" classname="academy.devdojo.springboot2.service.AnimeServiceTest" time="0.025"/>
+  <testcase name="findByName_ReturnsListOfAnime_WhenSuccessful" classname="academy.devdojo.springboot2.service.AnimeServiceTest" time="0.034"/>
+  <testcase name="save_ReturnsAnime_WhenSuccessful" classname="academy.devdojo.springboot2.service.AnimeServiceTest" time="0.019"/>
+  <testcase name="delete_RemovesAnime_WhenSuccessful" classname="academy.devdojo.springboot2.service.AnimeServiceTest" time="0.015"/>
+  <testcase name="listAllNonPageable_ReturnsListOfAnimes_WhenSuccessful" classname="academy.devdojo.springboot2.service.AnimeServiceTest" time="0.015"/>
+  <testcase name="listAll_ReturnsListOfAnimesInsidePageObject_WhenSuccessful" classname="academy.devdojo.springboot2.service.AnimeServiceTest" time="0.038"/>
+  <testcase name="findByName_ReturnsEmptyList_WhenAnimeIsNotFound" classname="academy.devdojo.springboot2.service.AnimeServiceTest" time="0.033"/>
 </testsuite>

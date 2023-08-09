@@ -1,2 +1,8 @@
-C:\Users\gusta\OneDrive\Documentos\GitHub\spring-boot-2-essentials\src\test\java\academy\devdojo\springboot2\repository\AnimeRepositoryTest.java
-C:\Users\gusta\OneDrive\Documentos\GitHub\spring-boot-2-essentials\src\test\java\academy\devdojo\springboot2\Springboot2EssentialsApplicationTests.java
+/home/gustavo/Documents/Projects/spring-boot-2-essentials/src/test/java/academy/devdojo/springboot2/controller/AnimeControllerTest.java
+/home/gustavo/Documents/Projects/spring-boot-2-essentials/src/test/java/academy/devdojo/springboot2/integration/AnimeControllerIT.java
+/home/gustavo/Documents/Projects/spring-boot-2-essentials/src/test/java/academy/devdojo/springboot2/util/AnimePostRequestBodyCreator.java
+/home/gustavo/Documents/Projects/spring-boot-2-essentials/src/test/java/academy/devdojo/springboot2/service/AnimeServiceTest.java
+/home/gustavo/Documents/Projects/spring-boot-2-essentials/src/test/java/academy/devdojo/springboot2/util/AnimeCreator.java
+/home/gustavo/Documents/Projects/spring-boot-2-essentials/src/test/java/academy/devdojo/springboot2/util/AnimePutRequestBodyCreator.java
+/home/gustavo/Documents/Projects/spring-boot-2-essentials/src/test/java/academy/devdojo/springboot2/Springboot2EssentialsApplicationTests.java
+/home/gustavo/Documents/Projects/spring-boot-2-essentials/src/test/java/academy/devdojo/springboot2/repository/AnimeRepositoryTest.java
