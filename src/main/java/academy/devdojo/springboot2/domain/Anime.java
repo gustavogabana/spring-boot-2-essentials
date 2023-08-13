@@ -1,12 +1,14 @@
 package academy.devdojo.springboot2.domain;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.validator.constraints.URL;
 
 @Data // lombok annotation that creates the getters, setters, equals & hashcode, to string
 @AllArgsConstructor // creates constructor with all attributes
@@ -17,6 +19,7 @@ public class Anime { // this class represents the objects
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // GENERATE THIS ID AS A PK
     private Long id;
+
     @NotEmpty(message = "The anime name cannot be empty")
     private String name;
 
