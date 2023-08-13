@@ -10,6 +10,7 @@ import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 
 import static org.springframework.security.config.Customizer.withDefaults;
 
@@ -20,11 +21,14 @@ import static org.springframework.security.config.Customizer.withDefaults;
 @Log4j2
 public class SecurityConfig {
     /**
-     * Setup that requires every http request needs to be authenticated with basic http authentication
+     * Setup that requires every http request needs to be authenticated with basic http authentication.
+     * CSRF: Enable it to utilize the token on request that alter the status of the data in the database
      */
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.authorizeHttpRequests((auth) -> auth
+        http.csrf().disable()
+                //.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()).and()
+                .authorizeHttpRequests((request) -> request
                 .anyRequest().authenticated()
         ).httpBasic(withDefaults());
         return http.build();
@@ -34,14 +38,10 @@ public class SecurityConfig {
      * Configures the user, the role of this user and the password of this user,
      * with cryptography provide with the password encoder object,
      * all in memory, that is, when the application is executing
-     *
-     * @return
      */
     @Bean
     public InMemoryUserDetailsManager userDetailsService() {
         PasswordEncoder encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
-
-        log.info("Password encoded '{}'", encoder.encode("test"));
         UserDetails user = User.withUsername("gustavo")
                 .password(encoder.encode("123"))
                 .roles("USER", "ADMIN")

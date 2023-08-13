@@ -1,4 +1,54 @@
 -------------------------------------------------------------------------------
 Test set: academy.devdojo.springboot2.repository.AnimeRepositoryTest
 -------------------------------------------------------------------------------
-Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 6.093 s - in academy.devdojo.springboot2.repository.AnimeRepositoryTest
+Tests run: 6, Failures: 0, Errors: 5, Skipped: 0, Time elapsed: 10.472 s <<< FAILURE! - in academy.devdojo.springboot2.repository.AnimeRepositoryTest
+save_PersistAnime_WhenSuccessful  Time elapsed: 0.414 s  <<< ERROR!
+org.springframework.dao.InvalidDataAccessResourceUsageException: could not prepare statement; SQL [insert into anime (name) values (?)]
+	at academy.devdojo.springboot2.repository.AnimeRepositoryTest.save_PersistAnime_WhenSuccessful(AnimeRepositoryTest.java:26)
+Caused by: org.hibernate.exception.SQLGrammarException: could not prepare statement
+	at academy.devdojo.springboot2.repository.AnimeRepositoryTest.save_PersistAnime_WhenSuccessful(AnimeRepositoryTest.java:26)
+Caused by: org.h2.jdbc.JdbcSQLSyntaxErrorException: 
+Table "ANIME" not found (this database is empty); SQL statement:
+insert into anime (name) values (?) [42104-214]
+	at academy.devdojo.springboot2.repository.AnimeRepositoryTest.save_PersistAnime_WhenSuccessful(AnimeRepositoryTest.java:26)
+
+findByName_ReturnsListOfAnime_WhenSuccessful  Time elapsed: 0.026 s  <<< ERROR!
+org.springframework.dao.InvalidDataAccessResourceUsageException: could not prepare statement; SQL [insert into anime (name) values (?)]
+	at academy.devdojo.springboot2.repository.AnimeRepositoryTest.findByName_ReturnsListOfAnime_WhenSuccessful(AnimeRepositoryTest.java:65)
+Caused by: org.hibernate.exception.SQLGrammarException: could not prepare statement
+	at academy.devdojo.springboot2.repository.AnimeRepositoryTest.findByName_ReturnsListOfAnime_WhenSuccessful(AnimeRepositoryTest.java:65)
+Caused by: org.h2.jdbc.JdbcSQLSyntaxErrorException: 
+Table "ANIME" not found (this database is empty); SQL statement:
+insert into anime (name) values (?) [42104-214]
+	at academy.devdojo.springboot2.repository.AnimeRepositoryTest.findByName_ReturnsListOfAnime_WhenSuccessful(AnimeRepositoryTest.java:65)
+
+delete_RemovesAnime_WhenSuccessful  Time elapsed: 0.013 s  <<< ERROR!
+org.springframework.dao.InvalidDataAccessResourceUsageException: could not prepare statement; SQL [insert into anime (name) values (?)]
+	at academy.devdojo.springboot2.repository.AnimeRepositoryTest.delete_RemovesAnime_WhenSuccessful(AnimeRepositoryTest.java:54)
+Caused by: org.hibernate.exception.SQLGrammarException: could not prepare statement
+	at academy.devdojo.springboot2.repository.AnimeRepositoryTest.delete_RemovesAnime_WhenSuccessful(AnimeRepositoryTest.java:54)
+Caused by: org.h2.jdbc.JdbcSQLSyntaxErrorException: 
+Table "ANIME" not found (this database is empty); SQL statement:
+insert into anime (name) values (?) [42104-214]
+	at academy.devdojo.springboot2.repository.AnimeRepositoryTest.delete_RemovesAnime_WhenSuccessful(AnimeRepositoryTest.java:54)
+
+findByName_ReturnsEmptyList_WhenNoAnimeIsFound  Time elapsed: 0.492 s  <<< ERROR!
+org.springframework.dao.InvalidDataAccessResourceUsageException: could not prepare statement; SQL [select a1_0.id,a1_0.name from anime a1_0 where a1_0.name=?]
+	at academy.devdojo.springboot2.repository.AnimeRepositoryTest.findByName_ReturnsEmptyList_WhenNoAnimeIsFound(AnimeRepositoryTest.java:74)
+Caused by: org.hibernate.exception.SQLGrammarException: could not prepare statement
+	at academy.devdojo.springboot2.repository.AnimeRepositoryTest.findByName_ReturnsEmptyList_WhenNoAnimeIsFound(AnimeRepositoryTest.java:74)
+Caused by: org.h2.jdbc.JdbcSQLSyntaxErrorException: 
+Table "ANIME" not found (this database is empty); SQL statement:
+select a1_0.id,a1_0.name from anime a1_0 where a1_0.name=? [42104-214]
+	at academy.devdojo.springboot2.repository.AnimeRepositoryTest.findByName_ReturnsEmptyList_WhenNoAnimeIsFound(AnimeRepositoryTest.java:74)
+
+save_UpdateAnime_WhenSuccessful  Time elapsed: 0.031 s  <<< ERROR!
+org.springframework.dao.InvalidDataAccessResourceUsageException: could not prepare statement; SQL [insert into anime (name) values (?)]
+	at academy.devdojo.springboot2.repository.AnimeRepositoryTest.save_UpdateAnime_WhenSuccessful(AnimeRepositoryTest.java:37)
+Caused by: org.hibernate.exception.SQLGrammarException: could not prepare statement
+	at academy.devdojo.springboot2.repository.AnimeRepositoryTest.save_UpdateAnime_WhenSuccessful(AnimeRepositoryTest.java:37)
+Caused by: org.h2.jdbc.JdbcSQLSyntaxErrorException: 
+Table "ANIME" not found (this database is empty); SQL statement:
+insert into anime (name) values (?) [42104-214]
+	at academy.devdojo.springboot2.repository.AnimeRepositoryTest.save_UpdateAnime_WhenSuccessful(AnimeRepositoryTest.java:37)
+
