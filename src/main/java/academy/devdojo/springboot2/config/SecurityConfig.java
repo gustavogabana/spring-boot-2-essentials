@@ -3,6 +3,8 @@ package academy.devdojo.springboot2.config;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.configuration.EnableGlobalAuthentication;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,6 +21,7 @@ import static org.springframework.security.config.Customizer.withDefaults;
  */
 @Configuration // notes this class as a configuration and a bean
 @Log4j2
+@EnableMethodSecurity // enable the @PreAuthorize annotation used on controller, it's value is true by default
 public class SecurityConfig {
     /**
      * Setup that requires every http request needs to be authenticated with basic http authentication.

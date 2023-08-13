@@ -12,6 +12,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -55,6 +56,7 @@ public class AnimeController { // controller represents all the endpoints of the
     }
 
     @PostMapping
+    @PreAuthorize("hasRole('ADMIN')") // consider the role of the person that realizes the request
     public ResponseEntity<Anime> save(@RequestBody @Valid AnimePostRequestBody anime) {// jackson serializer will map the object sent through http
         // @valid checks if the object matches the attributes requisites
         // @requestbody checks if the json body matches the endpoint fields and structure
