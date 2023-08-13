@@ -1,7 +1,5 @@
 package academy.devdojo.springboot2.config;
 
-import academy.devdojo.springboot2.domain.SystemUser;
-import academy.devdojo.springboot2.service.SystemUserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.context.annotation.Bean;
@@ -43,7 +41,9 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 //.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()).and()
-                .authorizeHttpRequests((request) -> request
+                .authorizeHttpRequests((authz) -> authz
+                        .requestMatchers("/animes/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/animes/**").hasRole("USER")
                         .anyRequest().authenticated()
                 ).formLogin().and()
                 .httpBasic(withDefaults());
@@ -58,7 +58,6 @@ public class SecurityConfig {
     @Bean
     public InMemoryUserDetailsManager userDetailsService() {
         PasswordEncoder encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
-        log.info(encoder.encode("123"));
         UserDetails user = User.withUsername("gustavo")
                 .password(encoder.encode("123"))
                 .roles("USER", "ADMIN")

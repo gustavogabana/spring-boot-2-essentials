@@ -12,7 +12,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
@@ -56,7 +55,7 @@ public class AnimeController { // controller represents all the endpoints of the
         return ResponseEntity.ok(animeService.findByIdOrThrowBadRequestException(id));
     }
 
-    @GetMapping(path = "/find")
+    @GetMapping(path = "/find/")
     public ResponseEntity<List<Anime>> findByName(@RequestParam(required = false) String name) {
         //@RequestParam annotation to map the value of the param for the url /find/name
         // it maps the name of the param of the method automatically
@@ -65,7 +64,7 @@ public class AnimeController { // controller represents all the endpoints of the
     }
 
     @PostMapping
-    @PreAuthorize("hasRole('ADMIN')") // consider the role of the person that realizes the request
+    //@PreAuthorize("hasRole('ADMIN')") // consider the role of the person that realizes the request
     public ResponseEntity<Anime> save(@RequestBody @Valid AnimePostRequestBody anime) {// jackson serializer will map the object sent through http
         // @valid checks if the object matches the attributes requisites
         // @requestbody checks if the json body matches the endpoint fields and structure
@@ -74,7 +73,7 @@ public class AnimeController { // controller represents all the endpoints of the
     }
 
     // delete method based on rfc7231 idempotent methods
-    @DeleteMapping(path = "/{id}")
+    @DeleteMapping(path = "/admin/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         log.info(dateUtil.formatLocalDateTimeToDatabaseStyle(LocalDateTime.now()));
         animeService.delete(id);
