@@ -1,16 +1,14 @@
 package academy.devdojo.springboot2.config;
 
+import academy.devdojo.springboot2.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
 import static org.springframework.security.config.Customizer.withDefaults;
@@ -33,6 +31,9 @@ import static org.springframework.security.config.Customizer.withDefaults;
 @EnableMethodSecurity // enable the @PreAuthorize annotation used on controller, it's value is true by default
 @RequiredArgsConstructor
 public class SecurityConfig {
+
+    private final UserService userService;
+
     /**
      * Setup that requires every http request needs to be authenticated with basic http authentication.
      * CSRF: Enable it to utilize the token on request that alter the status of the data in the database
@@ -42,27 +43,17 @@ public class SecurityConfig {
         http.csrf().disable()
                 //.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()).and()
                 .authorizeHttpRequests((authz) -> authz
-                        .requestMatchers("/animes/admin/**").hasRole("ADMIN")
-                        .requestMatchers("/animes/**").hasRole("USER")
-                        .anyRequest().authenticated()
+//                        .requestMatchers("/animes/admin/**").hasRole("ADMIN")
+//                        .requestMatchers("/animes/**").hasRole("USER")
+                                .anyRequest().authenticated()
                 ).formLogin().and()
                 .httpBasic(withDefaults());
         return http.build();
     }
 
-    /**
-     * Configures the user, the role of this user and the password of this user,
-     * with cryptography provide with the password encoder object,
-     * all in memory, that is, when the application is executing
-     */
     @Bean
-    public InMemoryUserDetailsManager userDetailsService() {
-        PasswordEncoder encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
-        UserDetails user = User.withUsername("gustavo")
-                .password(encoder.encode("123"))
-                .roles("USER", "ADMIN")
-                .build();
-        return new InMemoryUserDetailsManager(user);
+    public PasswordEncoder passwordEncoder() {
+        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
     }
 
 }
