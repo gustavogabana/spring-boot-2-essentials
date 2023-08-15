@@ -1,6 +1,6 @@
 package academy.devdojo.springboot2.config;
 
-import academy.devdojo.springboot2.service.UserService;
+import academy.devdojo.springboot2.service.UserModelService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.context.annotation.Bean;
@@ -32,7 +32,7 @@ import static org.springframework.security.config.Customizer.withDefaults;
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-    private final UserService userService;
+    private final UserModelService userService;
 
     /**
      * Setup that requires every http request needs to be authenticated with basic http authentication.
