@@ -1,8 +1,8 @@
 package academy.devdojo.springboot2.controller;
 
 import academy.devdojo.springboot2.domain.Anime;
-import academy.devdojo.springboot2.requests.AnimePostRequestBody;
-import academy.devdojo.springboot2.requests.AnimePutRequestBody;
+import academy.devdojo.springboot2.requests.animeRequests.AnimePostRequestBody;
+import academy.devdojo.springboot2.requests.animeRequests.AnimePutRequestBody;
 import academy.devdojo.springboot2.service.AnimeService;
 import academy.devdojo.springboot2.util.AnimeCreator;
 import academy.devdojo.springboot2.util.AnimePostRequestBodyCreator;

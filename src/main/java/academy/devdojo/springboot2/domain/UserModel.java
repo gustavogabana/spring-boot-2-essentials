@@ -41,8 +41,12 @@ public class UserModel implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Arrays.stream(authorities.split(","))
-                .map(SimpleGrantedAuthority::new).collect(Collectors.toList());
+        if (authorities != null) {
+            return Arrays.stream(authorities.split(","))
+                    .map(SimpleGrantedAuthority::new).collect(Collectors.toList());
+        } else {
+            return null;
+        }
     }
 
     @Override

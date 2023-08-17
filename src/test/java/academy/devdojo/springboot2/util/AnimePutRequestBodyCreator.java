@@ -1,6 +1,6 @@
 package academy.devdojo.springboot2.util;
 
-import academy.devdojo.springboot2.requests.AnimePutRequestBody;
+import academy.devdojo.springboot2.requests.animeRequests.AnimePutRequestBody;
 
 public class AnimePutRequestBodyCreator {
 

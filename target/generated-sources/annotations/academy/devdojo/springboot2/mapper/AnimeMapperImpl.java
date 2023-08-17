@@ -1,14 +1,14 @@
 package academy.devdojo.springboot2.mapper;
 
 import academy.devdojo.springboot2.domain.Anime;
-import academy.devdojo.springboot2.requests.AnimePostRequestBody;
-import academy.devdojo.springboot2.requests.AnimePutRequestBody;
+import academy.devdojo.springboot2.requests.animeRequests.AnimePostRequestBody;
+import academy.devdojo.springboot2.requests.animeRequests.AnimePutRequestBody;
 import javax.annotation.processing.Generated;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-08-13T21:33:56-0300",
+    date = "2023-08-16T21:01:07-0300",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 17.0.8 (Oracle Corporation)"
 )
 @Component

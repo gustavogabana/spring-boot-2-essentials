@@ -1,4 +1,4 @@
-package academy.devdojo.springboot2.requests;
+package academy.devdojo.springboot2.requests.animeRequests;
 
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;

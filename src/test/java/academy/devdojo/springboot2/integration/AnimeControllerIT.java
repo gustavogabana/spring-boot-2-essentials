@@ -2,7 +2,7 @@ package academy.devdojo.springboot2.integration;
 
 import academy.devdojo.springboot2.domain.Anime;
 import academy.devdojo.springboot2.repository.AnimeRepository;
-import academy.devdojo.springboot2.requests.AnimePostRequestBody;
+import academy.devdojo.springboot2.requests.animeRequests.AnimePostRequestBody;
 import academy.devdojo.springboot2.util.AnimeCreator;
 import academy.devdojo.springboot2.util.AnimePostRequestBodyCreator;
 import academy.devdojo.springboot2.wrapper.PageableResponse;

@@ -1,8 +1,8 @@
 package academy.devdojo.springboot2.mapper;
 
 import academy.devdojo.springboot2.domain.Anime;
-import academy.devdojo.springboot2.requests.AnimePostRequestBody;
-import academy.devdojo.springboot2.requests.AnimePutRequestBody;
+import academy.devdojo.springboot2.requests.animeRequests.AnimePostRequestBody;
+import academy.devdojo.springboot2.requests.animeRequests.AnimePutRequestBody;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
