@@ -58,7 +58,7 @@ public class UserModelController {
         }
     }
 
-    @PostMapping
+    @PostMapping(path = "/save")
     public ResponseEntity<UserModel> save(@RequestBody @Valid UserModelPostRequestBody userModelPostRequestBody) {
         String authorities = userModelPostRequestBody.getAuthorities();
         if (!validateAuthority(authorities)) {
@@ -78,7 +78,7 @@ public class UserModelController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/admin/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         userModelService.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);

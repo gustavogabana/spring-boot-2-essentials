@@ -55,7 +55,7 @@ public class AnimeController { // controller represents all the endpoints of the
         return ResponseEntity.ok(animeService.findByIdOrThrowBadRequestException(id));
     }
 
-    @GetMapping(path = "/find/")
+    @GetMapping(path = "/find")
     public ResponseEntity<List<Anime>> findByName(@RequestParam(required = false) String name) {
         //@RequestParam annotation to map the value of the param for the url /find/name
         // it maps the name of the param of the method automatically

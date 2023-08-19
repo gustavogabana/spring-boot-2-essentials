@@ -5,8 +5,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -28,7 +28,8 @@ import static org.springframework.security.config.Customizer.withDefaults;
  */
 @Configuration // notes this class as a configuration and a bean
 @Log4j2
-@EnableMethodSecurity // enable the @PreAuthorize annotation used on controller, it's value is true by default
+//@EnableMethodSecurity // enable the @PreAuthorize annotation used on controller, it's value is true by default
+@EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfig {
 
@@ -43,9 +44,13 @@ public class SecurityConfig {
         http.csrf().disable()
                 //.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()).and()
                 .authorizeHttpRequests((authz) -> authz
-//                        .requestMatchers("/animes/admin/**").hasRole("ADMIN")
-//                        .requestMatchers("/animes/**").hasRole("USER")
-                                .anyRequest().authenticated()
+                        .requestMatchers("/animes/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/animes/**").hasRole("USER")
+                        .requestMatchers("/users/roles").permitAll()
+                        .requestMatchers("/users/save").permitAll()
+                        .requestMatchers("/users/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/users/**").hasRole("USER")
+                        .anyRequest().authenticated()
                 ).formLogin().and()
                 .httpBasic(withDefaults());
         return http.build();
