@@ -30,6 +30,11 @@ public class UserModelController {
         return new ResponseEntity<>(userModelService.listAllPageable(page), HttpStatus.OK);
     }
 
+    @GetMapping(path = "/roles")
+    public ResponseEntity<List<String>> listRoles() {
+        return new ResponseEntity<>(userModelService.listRoles(), HttpStatus.OK);
+    }
+
     @GetMapping(path = "/all")
     public ResponseEntity<List<UserModel>> listAll() {
         return new ResponseEntity<>(userModelService.listAll(), HttpStatus.OK);

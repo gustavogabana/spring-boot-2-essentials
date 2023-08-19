@@ -71,4 +71,8 @@ public class UserModelService implements UserDetailsService {
             userRepository.deleteById(id);
         }
     }
+
+    public List<String> listRoles() {
+        return List.of("ROLE_USER", "ROLE_ADMING");
+    }
 }
