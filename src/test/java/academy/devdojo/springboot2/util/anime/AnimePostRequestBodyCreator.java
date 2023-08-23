@@ -1,4 +1,4 @@
-package academy.devdojo.springboot2.util;
+package academy.devdojo.springboot2.util.anime;
 
 import academy.devdojo.springboot2.requests.animeRequests.AnimePostRequestBody;
 
