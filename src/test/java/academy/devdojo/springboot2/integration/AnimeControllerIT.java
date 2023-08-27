@@ -36,6 +36,7 @@ public class AnimeControllerIT {
     @Autowired
     @Qualifier(value = "testRestTemplateUser") // tells to spring which dependency inject
     private TestRestTemplate testRestTemplateUser;
+    @Autowired
     @Qualifier(value = "testRestTemplateAdmin") // tells to spring which dependency inject
     private TestRestTemplate testRestTemplateAdmin;
     @Autowired
@@ -57,7 +58,7 @@ public class AnimeControllerIT {
 
     @TestConfiguration
     static class Config {
-        @Bean(name = "testRestTemplateUserAdmin")
+        @Bean(name = "testRestTemplateUser") //testRestTemplateUserAdmin
         @Lazy
         public TestRestTemplate testRestTemplateUserCreator(@Value("${local.server.port}") int port) {
             RestTemplateBuilder restTemplateBuilder = new RestTemplateBuilder()
@@ -66,7 +67,7 @@ public class AnimeControllerIT {
             return new TestRestTemplate(restTemplateBuilder);
         }
 
-        @Bean(name = "testRestTemplateUser")
+        @Bean(name = "testRestTemplateAdmin")
         @Lazy
         public TestRestTemplate testRestTemplateAdminCreator(@Value("${local.server.port}") int port) {
             RestTemplateBuilder restTemplateBuilder = new RestTemplateBuilder()
@@ -81,8 +82,11 @@ public class AnimeControllerIT {
     void list_ReturnsListOfAnimesInsidePageObject_WhenSuccessful() {
         Anime validAnime = AnimeCreator.createValidAnime();
         Anime saved = animeRepository.save(validAnime);
-        UserModel userModel = userModelRepository.save(USER);
-        PageableResponse<Anime> anime = testRestTemplateUser.exchange("/animes", HttpMethod.GET, null,
+        UserModel savedUserModel = userModelRepository.save(USER);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setBasicAuth(savedUserModel.getUsername(), "senha123");
+        HttpEntity<String> requestEntity = new HttpEntity<>(headers);
+        PageableResponse<Anime> anime = testRestTemplateUser.exchange("/animes", HttpMethod.GET, requestEntity,
                 new ParameterizedTypeReference<PageableResponse<Anime>>() {
                 }).getBody();
 
@@ -124,10 +128,13 @@ public class AnimeControllerIT {
     @DisplayName("Find By Name returns list of anime when successful")
     void findByName_ReturnsListOfAnime_WhenSuccessful() {
         Anime savedAnime = animeRepository.save(AnimeCreator.createValidAnime());
-        userModelRepository.save(USER);
+        UserModel savedUserModel = userModelRepository.save(USER);
         String expectedName = savedAnime.getName();
+        HttpHeaders headers = new HttpHeaders();
+        headers.setBasicAuth(savedUserModel.getUsername(), "senha123");
+        HttpEntity<String> requestEntity = new HttpEntity<>(headers);
         String url = String.format("/animes/find?name=%s", expectedName);
-        List<Anime> animes = testRestTemplateUser.exchange(url, HttpMethod.GET, null,
+        List<Anime> animes = testRestTemplateUser.exchange(url, HttpMethod.GET, requestEntity,
                 new ParameterizedTypeReference<List<Anime>>() {
                 }).getBody();
 
@@ -139,9 +146,12 @@ public class AnimeControllerIT {
     @DisplayName("Find By Name returns an empty list when anime is not found")
     void findByName_ReturnsEmptyList_WhenAnimeIsNotFound() {
         String expectedName = "Berserk";
-        userModelRepository.save(USER);
+        UserModel savedUserModel = userModelRepository.save(USER);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setBasicAuth(savedUserModel.getUsername(), "senha123");
+        HttpEntity<String> requestEntity = new HttpEntity<>(headers);
         String url = String.format("/animes/find?name=%s", expectedName);
-        List<Anime> animes = testRestTemplateUser.exchange(url, HttpMethod.GET, null,
+        List<Anime> animes = testRestTemplateUser.exchange(url, HttpMethod.GET, requestEntity,
                 new ParameterizedTypeReference<List<Anime>>() {
                 }).getBody();
 
@@ -177,9 +187,12 @@ public class AnimeControllerIT {
     @DisplayName("Delete removes anime when successful")
     void delete_RemovesAnime_WhenSuccessful() {
         Anime savedAnime = animeRepository.save(AnimeCreator.createValidAnime());
-        userModelRepository.save(ADMIN);
-        ResponseEntity<Void> entity = testRestTemplateAdmin.exchange("/animes/admin/{id}", HttpMethod.DELETE,
-                null, Void.class, savedAnime.getId());
+        UserModel savedUserModel = userModelRepository.save(ADMIN);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setBasicAuth(savedUserModel.getUsername(), "senha123");
+        HttpEntity<String> requestEntity = new HttpEntity<>(headers);
+        ResponseEntity<Void> entity = testRestTemplateAdmin.exchange("/animes/admin/".concat(savedAnime.getId().toString()), HttpMethod.DELETE,
+                requestEntity, Void.class);
 
         Assertions.assertThat(entity).isNotNull();
         Assertions.assertThat(entity.getStatusCode()).isEqualTo(HttpStatus.NO_CONTENT);
@@ -189,9 +202,12 @@ public class AnimeControllerIT {
     @DisplayName("Delete return 403 when user is not admin")
     void delete_Returns403_WhenUserIsNotAdmin() {
         Anime savedAnime = animeRepository.save(AnimeCreator.createValidAnime());
-        userModelRepository.save(USER);
+        UserModel savedUserModel = userModelRepository.save(USER);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setBasicAuth(savedUserModel.getUsername(), "senha123");
+        HttpEntity<String> requestEntity = new HttpEntity<>(headers);
         ResponseEntity<Void> entity = testRestTemplateUser.exchange("/animes/admin/{id}", HttpMethod.DELETE,
-                null, Void.class, savedAnime.getId());
+                requestEntity, Void.class, savedAnime.getId());
 
         Assertions.assertThat(entity).isNotNull();
         Assertions.assertThat(entity.getStatusCode()).isEqualTo(HttpStatus.FORBIDDEN);
