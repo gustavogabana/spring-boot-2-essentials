@@ -41,3 +41,14 @@ logging:
       hibernate:
         SQL:
           debug
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+info:
+  app: Spring Boot 2 Essentials
+  website: https://www.youtube.com/@DevDojoBrasil
+  github: https://github.com/gustavo-gabana/spring-boot-2-essentials
