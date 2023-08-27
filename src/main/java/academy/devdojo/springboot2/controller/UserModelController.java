@@ -4,6 +4,7 @@ import academy.devdojo.springboot2.domain.UserModel;
 import academy.devdojo.springboot2.requests.userModelRequests.UserModelPostRequestBody;
 import academy.devdojo.springboot2.requests.userModelRequests.UserModelPutRequestBody;
 import academy.devdojo.springboot2.service.UserModelService;
+import io.swagger.v3.oas.annotations.Parameter;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -26,7 +27,7 @@ public class UserModelController {
     private final UserModelService userModelService;
 
     @GetMapping
-    public ResponseEntity<Page<UserModel>> list(Pageable page) {
+    public ResponseEntity<Page<UserModel>> list(@Parameter(hidden = true) Pageable page) {
         return new ResponseEntity<>(userModelService.listAllPageable(page), HttpStatus.OK);
     }
 

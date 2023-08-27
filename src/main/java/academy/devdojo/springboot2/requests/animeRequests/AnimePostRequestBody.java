@@ -1,5 +1,6 @@
 package academy.devdojo.springboot2.requests.animeRequests;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -15,6 +16,7 @@ public class AnimePostRequestBody {
     // does not contain the id attribute
     @NotEmpty(message = "The anime name cannot be empty")
     @NotNull(message = "The anime name cannot be null")
+    @Schema(description = "This is the Anime's name")
     private String name;
     @URL(message = "The URL is not valid") // return this message
     private String url;

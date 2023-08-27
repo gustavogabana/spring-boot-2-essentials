@@ -5,6 +5,10 @@ import academy.devdojo.springboot2.requests.animeRequests.AnimePostRequestBody;
 import academy.devdojo.springboot2.requests.animeRequests.AnimePutRequestBody;
 import academy.devdojo.springboot2.service.AnimeService;
 import academy.devdojo.springboot2.util.DateUtil;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -30,7 +34,9 @@ public class AnimeController { // controller represents all the endpoints of the
     private final AnimeService animeService;
 
     @GetMapping // context for this method only localhost:8080/anime/list
-    public ResponseEntity<Page<Anime>> list(Pageable page) {
+    @Operation(summary = "List all the animes paginated", description = "The default size is 20, use the parameter size to change the default value",
+            tags = "{anime}")
+    public ResponseEntity<Page<Anime>> list(@Parameter(hidden = true) Pageable page) {
         log.info(dateUtil.formatLocalDateTimeToDatabaseStyle(LocalDateTime.now()));
         return new ResponseEntity<>(animeService.listAll(page), HttpStatus.OK);
         // response entity object return the info(object) required and the corresponding http status
@@ -74,6 +80,10 @@ public class AnimeController { // controller represents all the endpoints of the
 
     // delete method based on rfc7231 idempotent methods
     @DeleteMapping(path = "/admin/{id}")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "204", description = "Successful Operation"),
+            @ApiResponse(responseCode = "400", description = "Doesn't Exist in The Database")
+    })
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         log.info(dateUtil.formatLocalDateTimeToDatabaseStyle(LocalDateTime.now()));
         animeService.delete(id);
